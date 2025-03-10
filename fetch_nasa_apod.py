@@ -7,7 +7,6 @@ from get_file_extension import get_file_extension
 def fetch_nasa_apod(api_key):
     url = 'https://api.nasa.gov/planetary/apod'
     images_path = 'images'
-    extension = get_file_extension(url)
 
     if not os.path.exists(images_path):
         os.mkdir(images_path)
@@ -25,6 +24,7 @@ def fetch_nasa_apod(api_key):
         image_response = requests.get(image_link)
         image_response.raise_for_status()
 
+        extension = get_file_extension(image_link)
         filename = f"nasa_apod_{index}{extension}"
         with open(os.path.join(images_path, filename), 'wb') as file:
             file.write(image_response.content)
@@ -33,7 +33,14 @@ def fetch_nasa_apod(api_key):
 def main():
     env.read_env()
     api_key = env.str("API_KEY")
-    fetch_nasa_apod(api_key)
+    try:
+        fetch_nasa_apod(api_key)
+    except requests.exceptions.HTTPError as e:
+        print(f"Ошибка запроса: {e}")
+    except KeyError:
+        print("Ошибка: неожиданный формат ответа от API.")
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
 
 
 if __name__ == "__main__":
