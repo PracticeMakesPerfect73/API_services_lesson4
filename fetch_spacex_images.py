@@ -19,6 +19,10 @@ def fetch_spacex_launch(launch_id):
 
     images_links = answer['links']['flickr']['original']
 
+    if not images_links:
+        print("Нет доступных изображений для данного запуска.")
+        return
+
     for index, image_link in enumerate(images_links):
         image_response = requests.get(image_link)
         image_response.raise_for_status()
