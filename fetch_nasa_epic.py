@@ -39,7 +39,14 @@ def fetch_nasa_epic(api_key):
 def main():
     env.read_env()
     api_key = env.str("API_KEY")
-    fetch_nasa_epic(api_key)
+    try:
+        fetch_nasa_epic(api_key)
+    except requests.exceptions.HTTPError as e:
+        print(f"Ошибка запроса: {e}")
+    except KeyError:
+        print("Ошибка: неожиданный формат ответа от API.")
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
 
 
 if __name__ == "__main__":
