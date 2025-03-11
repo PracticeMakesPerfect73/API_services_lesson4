@@ -1,7 +1,7 @@
 import requests
 import os
 from datetime import datetime
-from environs import env
+from environs import Env
 
 
 def fetch_nasa_epic(api_key):
@@ -37,6 +37,7 @@ def fetch_nasa_epic(api_key):
 
 
 def main():
+    env = Env()
     env.read_env()
     api_key = env.str("API_KEY")
     try:

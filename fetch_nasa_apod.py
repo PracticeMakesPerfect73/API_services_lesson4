@@ -1,6 +1,6 @@
 import requests
 import os
-from environs import env
+from environs import Env
 from get_file_extension import get_file_extension
 
 
@@ -31,6 +31,7 @@ def fetch_nasa_apod(api_key):
 
 
 def main():
+    env = Env()
     env.read_env()
     api_key = env.str("API_KEY")
     try:
