@@ -40,15 +40,7 @@ def main():
     args = parser.parse_args()
 
     user_input = args.launch_id
-
-    try:
-        fetch_spacex_launch(user_input)
-    except requests.exceptions.HTTPError as e:
-        print(f"Ошибка запроса: {e}")
-    except KeyError:
-        print("Ошибка: неожиданный формат ответа от API.")
-    except Exception as e:
-        print(f"Произошла ошибка: {e}")
+    fetch_spacex_launch(user_input)
 
 
 if __name__ == "__main__":
