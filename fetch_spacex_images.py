@@ -1,14 +1,11 @@
 import requests
-import os
-from get_file_extension import get_file_extension
+from image_operations_helper import get_file_extension, download_image
 import argparse
 
 
 def fetch_spacex_launch(launch_id):
     base_url = 'https://api.spacexdata.com/v5/launches/'
     url = f"{base_url}{launch_id}"
-    images_path = 'images'
-    os.makedirs(images_path, exist_ok=True)
 
     response = requests.get(url)
     response.raise_for_status()
@@ -21,13 +18,9 @@ def fetch_spacex_launch(launch_id):
         return
 
     for index, image_link in enumerate(images_links):
-        image_response = requests.get(image_link)
-        image_response.raise_for_status()
-
         extension = get_file_extension(image_link)
         filename = f"spacex{index}{extension}"
-        with open(os.path.join(images_path, filename), 'wb') as file:
-            file.write(image_response.content)
+        download_image(image_link, filename)
 
 
 def main():

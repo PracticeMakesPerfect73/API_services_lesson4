@@ -1,7 +1,7 @@
 import requests
 import os
 from environs import Env
-from get_file_extension import get_file_extension
+from image_operations_helper import get_file_extension, download_image
 
 IMAGE_COUNT = 40
 
@@ -21,13 +21,9 @@ def fetch_nasa_apod(api_key):
     images_links = [item["url"] for item in answer]
 
     for index, image_link in enumerate(images_links):
-        image_response = requests.get(image_link)
-        image_response.raise_for_status()
-
         extension = get_file_extension(image_link)
         filename = f"nasa_apod_{index}{extension}"
-        with open(os.path.join(images_path, filename), 'wb') as file:
-            file.write(image_response.content)
+        download_image(image_link, filename)
 
 
 def main():

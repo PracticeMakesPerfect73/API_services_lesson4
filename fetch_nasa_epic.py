@@ -2,6 +2,7 @@ import requests
 import os
 from datetime import datetime
 from environs import Env
+from image_operations_helper import download_image
 
 IMAGE_COUNT = 10
 
@@ -30,12 +31,9 @@ def fetch_nasa_epic(api_key):
             "{}/{}/png/{}.png?api_key={}").format(
             year, month, day, image_name, api_key
         )
-        image_response = requests.get(image_url)
-        image_response.raise_for_status()
-
         filename = f"nasa_epic_{index}.png"
-        with open(os.path.join(images_path, filename), 'wb') as file:
-            file.write(image_response.content)
+        download_image(image_url, filename)
+
 
 
 def main():
