@@ -39,7 +39,7 @@ def fetch_nasa_epic(api_key):
 def main():
     env = Env()
     env.read_env()
-    api_key = env.str("API_KEY")
+    api_key = env.str("NASA_API_KEY")
     try:
         fetch_nasa_epic(api_key)
     except requests.exceptions.HTTPError as e:
