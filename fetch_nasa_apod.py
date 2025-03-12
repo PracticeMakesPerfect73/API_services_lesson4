@@ -7,9 +7,7 @@ from get_file_extension import get_file_extension
 def fetch_nasa_apod(api_key):
     url = 'https://api.nasa.gov/planetary/apod'
     images_path = 'images'
-
-    if not os.path.exists(images_path):
-        os.mkdir(images_path)
+    os.makedirs(images_path, exist_ok=True)
 
     params = {"api_key": api_key,
               "count": 40

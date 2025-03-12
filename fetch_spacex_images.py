@@ -8,9 +8,7 @@ def fetch_spacex_launch(launch_id):
     base_url = 'https://api.spacexdata.com/v5/launches/'
     url = f"{base_url}{launch_id}"
     images_path = 'images'
-
-    if not os.path.exists(images_path):
-        os.mkdir(images_path)
+    os.makedirs(images_path, exist_ok=True)
 
     response = requests.get(url)
     response.raise_for_status()

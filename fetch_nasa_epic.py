@@ -7,9 +7,7 @@ from environs import Env
 def fetch_nasa_epic(api_key):
     url = 'https://api.nasa.gov/EPIC/api/natural/images'
     images_path = 'images'
-
-    if not os.path.exists(images_path):
-        os.mkdir(images_path)
+    os.makedirs(images_path, exist_ok=True)
 
     params = {"api_key": api_key,
               }
