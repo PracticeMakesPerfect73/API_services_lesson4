@@ -17,14 +17,14 @@ def fetch_nasa_epic(api_key):
 
     response = requests.get(url, params=params)
     response.raise_for_status()
-    answer = response.json()
-    for index, item in enumerate(answer[:10]):
-        date_obj = datetime.strptime(item["date"],
+    images_data = response.json()
+    for index, image_info in enumerate(images_data[:IMAGE_COUNT]):
+        date_obj = datetime.strptime(image_info["date"],
                                      "%Y-%m-%d %H:%M:%S")
         year = "{:04d}".format(date_obj.year)
         month = "{:02d}".format(date_obj.month)
         day = "{:02d}".format(date_obj.day)
-        image_name = item["image"]
+        image_name = image_info["image"]
         image_url = (
             "https://api.nasa.gov/EPIC/archive/natural/{}/"
             "{}/{}/png/{}.png?api_key={}").format(
