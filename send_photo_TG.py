@@ -5,15 +5,6 @@ import random
 from environs import Env
 
 
-env = Env()
-env.read_env()
-
-TG_TOKEN = env.str("TG_TOKEN")
-TG_CHAT_ID = env.str("TG_CHAT_ID")
-
-bot = telegram.Bot(token=TG_TOKEN)
-
-
 def send_image(image_path):
     try:
         with open(image_path, 'rb') as photo:
@@ -43,4 +34,11 @@ def main():
 
 
 if __name__ == "__main__":
+    env = Env()
+    env.read_env()
+
+    TG_TOKEN = env.str("TG_TOKEN")
+    TG_CHAT_ID = env.str("TG_CHAT_ID")
+
+    bot = telegram.Bot(token=TG_TOKEN)
     main()
