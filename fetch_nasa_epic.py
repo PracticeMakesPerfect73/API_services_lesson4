@@ -9,8 +9,9 @@ def fetch_nasa_epic(api_key):
     images_path = 'images'
     os.makedirs(images_path, exist_ok=True)
 
-    params = {"api_key": api_key,
-              }
+    params = {
+        "api_key": api_key,
+    }
 
     response = requests.get(url, params=params)
     response.raise_for_status()
@@ -22,8 +23,9 @@ def fetch_nasa_epic(api_key):
         month = "{:02d}".format(date_obj.month)
         day = "{:02d}".format(date_obj.day)
         image_name = item["image"]
-        image_url = ("https://api.nasa.gov/EPIC/archive/natural/{}/"
-                     "{}/{}/png/{}.png?api_key={}").format(
+        image_url = (
+            "https://api.nasa.gov/EPIC/archive/natural/{}/"
+            "{}/{}/png/{}.png?api_key={}").format(
             year, month, day, image_name, api_key
         )
         image_response = requests.get(image_url)

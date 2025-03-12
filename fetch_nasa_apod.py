@@ -9,9 +9,10 @@ def fetch_nasa_apod(api_key):
     images_path = 'images'
     os.makedirs(images_path, exist_ok=True)
 
-    params = {"api_key": api_key,
-              "count": 40
-              }
+    params = {
+        "api_key": api_key,
+        "count": 40
+    }
     response = requests.get(url, params=params)
     response.raise_for_status()
     answer = response.json()
