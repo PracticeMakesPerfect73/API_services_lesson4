@@ -3,12 +3,13 @@ import os
 from datetime import datetime
 from environs import Env
 from image_operations_helper import download_image
+from urllib.parse import urlencode, urlunparse
 
 IMAGE_COUNT = 10
 
 
 def fetch_nasa_epic(api_key):
-    url = 'https://api.nasa.gov/EPIC/api/natural/images'
+    url = 'https://api.nasa.gov/EPIC/api/natural/image'
     images_path = 'images'
     os.makedirs(images_path, exist_ok=True)
 
@@ -26,14 +27,19 @@ def fetch_nasa_epic(api_key):
         month = "{:02d}".format(date_obj.month)
         day = "{:02d}".format(date_obj.day)
         image_name = image_info["image"]
-        image_url = (
-            "https://api.nasa.gov/EPIC/archive/natural/{}/"
-            "{}/{}/png/{}.png?api_key={}").format(
-            year, month, day, image_name, api_key
+        image_url_path = (
+            f"EPIC/archive/natural/{year}/{month}/{day}/png/{image_name}.png"
         )
+        params = {
+            "api_key": api_key,
+        }
+        encoded_params = urlencode(params)
+        image_url = urlunparse((
+            "https", "api.nasa.gov", image_url_path, "", encoded_params, ""
+        ))
+
         filename = f"nasa_epic_{index}.png"
         download_image(image_url, filename)
-
 
 
 def main():

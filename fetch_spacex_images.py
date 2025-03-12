@@ -30,8 +30,8 @@ def main():
                         default="latest", help="Идентификатор запуска")
     args = parser.parse_args()
 
-    user_input = args.launch_id
-    fetch_spacex_launch(user_input)
+    launch_id = args.launch_id
+    fetch_spacex_launch(launch_id)
 
 
 if __name__ == "__main__":
