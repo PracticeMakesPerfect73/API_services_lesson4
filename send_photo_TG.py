@@ -6,13 +6,9 @@ from environs import Env
 
 
 def send_image(image_path):
-    try:
-        with open(image_path, 'rb') as photo:
-            bot.send_photo(chat_id=TG_CHAT_ID, photo=photo)
-    except FileNotFoundError as e:
-        print(f"Файл не найден: {e}")
-    except ConnectionError as e:
-        print(f"Ошибка соединения: {e}")
+    with open(image_path, 'rb') as photo:
+        bot.send_photo(chat_id=TG_CHAT_ID, photo=photo)
+
 
 
 def main():
@@ -30,8 +26,12 @@ def main():
               for img in os.listdir(images_path)]
 
     image_path = args.image if args.image else random.choice(images)
-    send_image(image_path)
-
+    try:
+        send_image(image_path)
+    except FileNotFoundError as e:
+        print(f"Файл не найден: {e}")
+    except ConnectionError as e:
+        print(f"Ошибка соединения: {e}")
 
 if __name__ == "__main__":
     env = Env()
