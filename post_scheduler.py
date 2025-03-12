@@ -1,3 +1,4 @@
+import telegram
 import random
 import os
 import time
@@ -9,6 +10,10 @@ from send_photo_TG import send_image
 def main():
     env = Env()
     env.read_env()
+    tg_token = env.str("TG_TOKEN")
+    tg_chat_id = env.str("TG_CHAT_ID")
+
+    bot = telegram.Bot(token=tg_token)
     images_path = 'images'
 
     parser = argparse.ArgumentParser(
@@ -36,7 +41,7 @@ def main():
             continue
 
         for image in images:
-            send_image(image)
+            send_image(bot, tg_chat_id, image)
             time.sleep(publication_interval_hours * secs_in_hour)
 
 
