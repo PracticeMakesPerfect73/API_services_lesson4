@@ -36,10 +36,7 @@ def main():
             continue
 
         for image in images:
-            try:
-                send_image(image)
-            except Exception as e:
-                print(f"Ошибка при отправке: {e}")
+            send_image(image)
             time.sleep(publication_interval_hours * secs_in_hour)
 
 

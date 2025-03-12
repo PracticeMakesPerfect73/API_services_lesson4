@@ -18,8 +18,10 @@ def send_image(image_path):
     try:
         with open(image_path, 'rb') as photo:
             bot.send_photo(chat_id=TG_CHAT_ID, photo=photo)
-    except Exception as e:
-        print(f"Ошибка при отправке: {e}")
+    except FileNotFoundError as e:
+        print(f"Файл не найден: {e}")
+    except ConnectionError as e:
+        print(f"Ошибка соединения: {e}")
 
 
 def main():
