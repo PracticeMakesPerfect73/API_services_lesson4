@@ -3,6 +3,7 @@ import os
 from environs import Env
 from get_file_extension import get_file_extension
 
+IMAGE_COUNT = 40
 
 def fetch_nasa_apod(api_key):
     url = 'https://api.nasa.gov/planetary/apod'
@@ -11,7 +12,7 @@ def fetch_nasa_apod(api_key):
 
     params = {
         "api_key": api_key,
-        "count": 40
+        "count": IMAGE_COUNT
     }
     response = requests.get(url, params=params)
     response.raise_for_status()

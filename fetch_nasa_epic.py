@@ -3,6 +3,8 @@ import os
 from datetime import datetime
 from environs import Env
 
+IMAGE_COUNT = 10
+
 
 def fetch_nasa_epic(api_key):
     url = 'https://api.nasa.gov/EPIC/api/natural/images'
