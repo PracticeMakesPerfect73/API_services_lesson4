@@ -30,12 +30,8 @@ def fetch_nasa_epic(api_key):
         image_url_path = (
             f"EPIC/archive/natural/{year}/{month}/{day}/png/{image_name}.png"
         )
-        params = {
-            "api_key": api_key,
-        }
-        encoded_params = urlencode(params)
         image_url = urlunparse((
-            "https", "api.nasa.gov", image_url_path, "", encoded_params, ""
+            "https", "api.nasa.gov", image_url_path, "", urlencode(params), ""
         ))
 
         filename = f"nasa_epic_{index}.png"
